@@ -4,7 +4,6 @@ import java.net.ServerSocket;
 import java.net.Socket;
 
 public class server {
-	private int port = 5054;
 	
 	public static void main(String[] args) throws Exception {
 		try {
