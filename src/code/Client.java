@@ -6,7 +6,7 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.InputStreamReader;
 
-public class client {
+public class Client {
 
 	public static void main(String[] args) {
 		try {
