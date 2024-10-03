@@ -23,14 +23,15 @@ public class Client {
 			b = in.read();
 			System.out.print(b);
 		}
+		System.out.print("\n");
 		if (!in.readUTF().equals("Server: transfer complete")) throw new Exception("something went wrong");
 	}
 
 	public static void main(String[] args) throws IOException {
 		try {
-			Socket socket = new Socket("127.0.0.1", 5054);//replace with server IP
-			DataInputStream in = new DataInputStream(socket.getInputStream());
-			DataOutputStream out = new DataOutputStream(socket.getOutputStream());
+			socket = new Socket("127.0.0.1", 5054);//replace with server IP
+			in = new DataInputStream(socket.getInputStream());
+			out = new DataOutputStream(socket.getOutputStream());
 			BufferedReader input = new BufferedReader(new InputStreamReader(System.in));
 			String message;
 			String response;
@@ -45,14 +46,7 @@ public class Client {
 				content = response.split(" ");
 				switch (content[1]) {
 				case "sending":
-					//receiveFile(content[2], Long.parseLong(content[4]));
-					int b;
-					for (long i=0; i<Long.parseLong(content[4]); i++) {
-						b = in.read();
-						System.out.print(b);
-					}
-					System.out.print("\n");
-					if (!in.readUTF().equals("Server: transfer complete")) throw new Exception("something went wrong");
+					receiveFile(content[2], Long.parseLong(content[4]));
 					break;
 				case "receiving":
 					// TODO: send file data to server
