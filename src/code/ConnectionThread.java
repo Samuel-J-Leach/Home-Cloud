@@ -23,9 +23,9 @@ public class ConnectionThread extends Thread{
 	
 	public void sendFile (String path) throws IOException, FileNotFoundException {
     	File file = new File(path);
-    	//String[] pathArray = path.split("\\");
-    	//String filename = pathArray[pathArray.length - 1];
-    	out.writeUTF(this.h+"sending " + path + " size: " + file.length());
+    	String[] pathArray = path.split("\\\\");
+    	String filename = pathArray[pathArray.length - 1];
+    	out.writeUTF(this.h+"sending " + filename + " size: " + file.length());
     	out.flush();
     	FileInputStream fis = new FileInputStream(file);
     	int b;

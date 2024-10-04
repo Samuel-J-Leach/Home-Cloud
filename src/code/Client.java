@@ -6,6 +6,7 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
@@ -15,16 +16,25 @@ public class Client {
 	private static DataOutputStream out;
 	
 	private static void receiveFile(String filename, long length) throws Exception {
-		// TODO: write data to file
-		//File file = new File(filename);
-		//file.createNewFile();
+		File file = new File(filename);
+		if (!file.createNewFile()) {
+			int x = 1;
+			while (!file.createNewFile()) {
+				file = new File(filename+x);
+				x++;
+			}
+		}
 		int b;
+		FileOutputStream fos = new FileOutputStream(file, true);
 		for (long i=0; i<length; i++) {
 			b = in.read();
+			fos.write(b);
 			System.out.print(b);
 		}
 		System.out.print("\n");
-		if (!in.readUTF().equals("Server: transfer complete")) throw new Exception("something went wrong");
+		if (!in.readUTF().equals("Server: transfer complete")) {
+			throw new Exception("something went wrong");
+		} else System.out.println("Server: transfer complete");
 	}
 
 	public static void main(String[] args) throws IOException {
