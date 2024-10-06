@@ -9,3 +9,4 @@ todo:
 - file deletion
 - directory management
 - file encryption
+- data integrity checks
