@@ -17,13 +17,16 @@ public class Client {
 	
 	private static void receiveFile(String filename, long length) throws Exception {
 		File file = new File(filename);
-		if (!file.createNewFile()) {
-			int x = 1;
-			while (!file.createNewFile()) {
-				file = new File(filename+x);
-				x++;
-			}
+		//if (!file.createNewFile()) {
+		int x = 1;
+		String[] filenameArr;
+		while (!file.createNewFile()) {
+			filenameArr = filename.split(".");
+			filenameArr[0] = filenameArr[0] + x;
+			file = new File(String.join(".", filenameArr));
+			x++;
 		}
+		//}
 		int b;
 		FileOutputStream fos = new FileOutputStream(file, true);
 		for (long i=0; i<length; i++) {
